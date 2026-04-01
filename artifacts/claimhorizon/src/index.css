@@ -68,7 +68,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Gold: #F5C542 ≈ hsl(44, 90%, 61%)   Blue mid: #123C7A ≈ hsl(213, 73%, 28%) */
 :root {
   --button-outline: rgba(255,255,255, .12);
   --badge-outline: rgba(255,255,255, .06);
@@ -76,35 +75,34 @@
   --elevate-1: rgba(255,255,255, .05);
   --elevate-2: rgba(255,255,255, .10);
 
-  /* Background variable matches gradient midpoint for component fallbacks */
-  --background: 213 73% 18%;
+  --background: 213 73% 20%;
   --foreground: 0 0% 100%;
-  --border: 213 55% 30%;
-  --card: 213 68% 16%;
+  --border: 213 50% 32%;
+  --card: 213 65% 17%;
   --card-foreground: 0 0% 100%;
-  --card-border: 213 55% 30%;
-  --sidebar: 213 73% 18%;
+  --card-border: 213 50% 30%;
+  --sidebar: 213 73% 20%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 213 55% 30%;
+  --sidebar-border: 213 50% 32%;
   --sidebar-primary: 44 90% 61%;
   --sidebar-primary-foreground: 213 73% 12%;
   --sidebar-accent: 44 90% 61%;
   --sidebar-accent-foreground: 213 73% 12%;
   --sidebar-ring: 44 90% 61%;
-  --popover: 213 68% 16%;
+  --popover: 213 65% 17%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 213 55% 30%;
+  --popover-border: 213 50% 30%;
   --primary: 44 90% 61%;
   --primary-foreground: 213 73% 12%;
-  --secondary: 213 60% 24%;
+  --secondary: 213 60% 26%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 213 58% 22%;
-  --muted-foreground: 213 20% 72%;
+  --muted: 213 55% 23%;
+  --muted-foreground: 213 20% 70%;
   --accent: 44 90% 61%;
   --accent-foreground: 213 73% 12%;
   --destructive: 0 65% 45%;
   --destructive-foreground: 0 0% 100%;
-  --input: 213 55% 30%;
+  --input: 213 50% 32%;
   --ring: 44 90% 61%;
   --chart-1: 44 90% 61%;
   --chart-2: 213 60% 50%;
@@ -129,34 +127,34 @@
 }
 
 .dark {
-  --background: 213 73% 18%;
+  --background: 213 73% 20%;
   --foreground: 0 0% 100%;
-  --border: 213 55% 30%;
-  --card: 213 68% 16%;
+  --border: 213 50% 32%;
+  --card: 213 65% 17%;
   --card-foreground: 0 0% 100%;
-  --card-border: 213 55% 30%;
-  --sidebar: 213 73% 18%;
+  --card-border: 213 50% 30%;
+  --sidebar: 213 73% 20%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 213 55% 30%;
+  --sidebar-border: 213 50% 32%;
   --sidebar-primary: 44 90% 61%;
   --sidebar-primary-foreground: 213 73% 12%;
   --sidebar-accent: 44 90% 61%;
   --sidebar-accent-foreground: 213 73% 12%;
   --sidebar-ring: 44 90% 61%;
-  --popover: 213 68% 16%;
+  --popover: 213 65% 17%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 213 55% 30%;
+  --popover-border: 213 50% 30%;
   --primary: 44 90% 61%;
   --primary-foreground: 213 73% 12%;
-  --secondary: 213 60% 24%;
+  --secondary: 213 60% 26%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 213 58% 22%;
-  --muted-foreground: 213 20% 72%;
+  --muted: 213 55% 23%;
+  --muted-foreground: 213 20% 70%;
   --accent: 44 90% 61%;
   --accent-foreground: 213 73% 12%;
   --destructive: 0 65% 45%;
   --destructive-foreground: 0 0% 100%;
-  --input: 213 55% 30%;
+  --input: 213 50% 32%;
   --ring: 44 90% 61%;
   --chart-1: 44 90% 61%;
   --chart-2: 213 60% 50%;
@@ -176,8 +174,12 @@ html {
 
   body {
     @apply font-sans antialiased text-foreground;
-    /* Exact gradient from user spec, fixed attachment so it doesn't scroll */
-    background: linear-gradient(135deg, #0B2A5B, #123C7A, #1E4FA3);
+    /* Glossy blue: radial highlight at top-left mimics a gloss/shine reflection */
+    background:
+      radial-gradient(ellipse at 28% 0%, rgba(80, 160, 255, 0.55) 0%, transparent 52%),
+      radial-gradient(ellipse at 72% 100%, rgba(8, 38, 110, 0.65) 0%, transparent 48%),
+      radial-gradient(ellipse at 90% 10%, rgba(40, 120, 230, 0.30) 0%, transparent 40%),
+      linear-gradient(155deg, #1560c8 0%, #0d45a0 28%, #092e8c 55%, #051870 80%, #030e50 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -185,11 +187,4 @@ html {
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
-}
-
-/* Cards and popover panels get a semi-transparent blue tint so the gradient shows subtly through */
-.card-glass {
-  background: rgba(11, 42, 91, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
