@@ -1,135 +1,307 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, ScanLine } from "lucide-react";
+import preInspectionImg from "@assets/image_1775041649343.png";
+
+const floatingParticles = Array.from({ length: 22 }, (_, i) => ({
+  id: i,
+  x: Math.random() * 100,
+  y: Math.random() * 100,
+  size: Math.random() * 3 + 1,
+  duration: Math.random() * 8 + 6,
+  delay: Math.random() * 4,
+}));
+
+const hexagons = [
+  { x: 8, y: 15, size: 70, opacity: 0.06, duration: 14 },
+  { x: 85, y: 10, size: 100, opacity: 0.05, duration: 18 },
+  { x: 70, y: 75, size: 60, opacity: 0.07, duration: 12 },
+  { x: 15, y: 70, size: 90, opacity: 0.04, duration: 20 },
+  { x: 50, y: 30, size: 50, opacity: 0.05, duration: 16 },
+];
 
 export default function Hero() {
   const scrollToContact = () => {
     const el = document.querySelector("#contact");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+  const scrollToFeatures = () => {
+    const el = document.querySelector("#features");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
-      {/* Abstract Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-900/20 blur-[150px]" />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+    <section
+      id="home"
+      className="relative pt-28 pb-16 lg:pt-44 lg:pb-28 overflow-hidden flex items-center min-h-screen"
+      style={{ background: "hsl(220, 72%, 10%)" }}
+    >
+      {/* ── Animated background vectors ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+        {/* Floating gold particles */}
+        {floatingParticles.map((p) => (
+          <motion.div
+            key={p.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: p.size,
+              height: p.size,
+              background: "hsl(43, 85%, 53%)",
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0, 0.6, 0],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Animated hexagons (SVG vectors) */}
+        {hexagons.map((h, i) => (
+          <motion.svg
+            key={i}
+            className="absolute"
+            style={{ left: `${h.x}%`, top: `${h.y}%` }}
+            width={h.size}
+            height={h.size}
+            viewBox="0 0 100 100"
+            fill="none"
+            animate={{ rotate: [0, 360], opacity: [h.opacity, h.opacity * 1.8, h.opacity] }}
+            transition={{ duration: h.duration, repeat: Infinity, ease: "linear" }}
+          >
+            <polygon
+              points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+              stroke="hsl(43, 85%, 53%)"
+              strokeWidth="1.5"
+              fill="none"
+              opacity="0.8"
+            />
+          </motion.svg>
+        ))}
+
+        {/* Sweeping diagonal light beam */}
+        <motion.div
+          className="absolute -top-20 -left-40 w-[500px] h-[900px] rotate-[30deg] origin-top-left"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(201,162,39,0.04), transparent)" }}
+          animate={{ x: ["-100%", "300%"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear", repeatDelay: 3 }}
+        />
+
+        {/* Gold glow orbs */}
+        <div className="absolute top-[-5%] right-[5%] w-[420px] h-[420px] rounded-full blur-[130px]"
+          style={{ background: "rgba(201,162,39,0.08)" }} />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[160px]"
+          style={{ background: "rgba(10,22,56,0.6)" }} />
+
+        {/* Moving scan ring */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10"
+          style={{ width: 600, height: 600 }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.1, 0.4] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/8"
+          style={{ width: 800, height: 800 }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.08, 0.3] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
       </div>
 
+      {/* ── Content ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+          {/* Left: Text */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary border border-border text-xs font-medium text-primary mb-6">
-              <ShieldCheck size={14} />
+            <motion.div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium text-primary mb-6"
+              style={{ background: "rgba(201,162,39,0.08)", borderColor: "rgba(201,162,39,0.25)" }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <ScanLine size={13} />
               <span>Enterprise-Grade AI for Insurers</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
-              Shaping the Future of <span className="text-primary italic">Insurance Claims</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6">
+              <motion.span
+                className="block text-foreground"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.15 }}
+              >
+                Shaping the
+              </motion.span>
+              <motion.span
+                className="block text-foreground"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.25 }}
+              >
+                Future of
+              </motion.span>
+              <motion.span
+                className="block text-primary italic"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.35 }}
+              >
+                Insurance Claims
+              </motion.span>
             </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl leading-relaxed">
-              Automate pre-inspection vehicle surveys with precision AI. 
+
+            <motion.p
+              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.45 }}
+            >
+              Automate pre-inspection vehicle surveys with precision AI.
               Eliminate fraud, assess risk accurately, and approve policies faster with our intelligent survey platform.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+            >
               <Button size="lg" className="h-14 px-8 text-base font-semibold group" onClick={scrollToContact}>
                 Request a Demo
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-base font-semibold border-primary/20 hover:bg-primary/10 hover:text-primary">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 px-8 text-base font-semibold"
+                style={{ borderColor: "rgba(201,162,39,0.3)" }}
+                onClick={scrollToFeatures}
+              >
                 Explore Features
               </Button>
-            </div>
-            
-            <div className="mt-12 flex items-center gap-6 text-sm text-muted-foreground font-medium">
+            </motion.div>
+
+            <motion.div
+              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground font-medium"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.7 }}
+            >
               <div className="flex items-center gap-2">
-                <Zap size={16} className="text-primary" />
-                <span>98% Accuracy</span>
+                <Zap size={15} className="text-primary" />
+                <span>98% Detection Accuracy</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-border" />
               <div className="flex items-center gap-2">
-                <ShieldCheck size={16} className="text-primary" />
-                <span>Fraud Prevention</span>
+                <ShieldCheck size={15} className="text-primary" />
+                <span>Fraud Prevention AI</span>
               </div>
-            </div>
+              <div className="w-1 h-1 rounded-full bg-border" />
+              <div className="flex items-center gap-2">
+                <ScanLine size={15} className="text-primary" />
+                <span>Instant Report Generation</span>
+              </div>
+            </motion.div>
           </motion.div>
-          
+
+          {/* Right: Real Pre-Inspection Image with effects */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            className="relative"
+            initial={{ opacity: 0, scale: 0.93 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="relative lg:ml-auto w-full max-w-lg"
+            transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
           >
-            {/* Mockup Dashboard UI graphic */}
-            <div className="relative rounded-xl border border-border bg-card/80 backdrop-blur-sm shadow-2xl p-4 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 opacity-50" />
-              
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/50">
-                <div className="flex gap-2 items-center">
-                  <div className="w-3 h-3 rounded-full bg-destructive/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                </div>
-                <div className="text-xs font-mono text-muted-foreground">AI_ANALYSIS_ENGINE_V2.4</div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between items-center bg-background/50 p-3 rounded-lg border border-border/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded bg-secondary flex items-center justify-center text-primary font-mono text-xs">IMG</div>
-                    <div>
-                      <div className="text-sm font-medium">Front_Bumper_Scan.jpg</div>
-                      <div className="text-xs text-muted-foreground">Processing image...</div>
-                    </div>
-                  </div>
-                  <div className="text-xs font-mono text-primary animate-pulse">98%</div>
-                </div>
+            {/* Outer glow */}
+            <div
+              className="absolute -inset-6 rounded-2xl blur-2xl -z-10"
+              style={{ background: "radial-gradient(ellipse, rgba(201,162,39,0.18) 0%, transparent 70%)" }}
+            />
 
-                <div className="relative h-48 bg-background/50 rounded-lg border border-border/50 overflow-hidden flex items-center justify-center">
-                  {/* Decorative AI scan lines */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0)_90%,rgba(201,162,39,0.2)_100%)] bg-[length:100%_4px] animate-[scan_2s_linear_infinite]" />
-                  <div className="text-muted-foreground/30 font-mono text-sm">[ VEHICLE MESH RENDERING ]</div>
-                  
-                  {/* Bounding box mock */}
-                  <div className="absolute top-1/4 left-1/4 w-1/3 h-1/3 border border-destructive bg-destructive/10 rounded flex items-start justify-end p-1">
-                     <span className="text-[10px] bg-destructive text-destructive-foreground px-1 py-0.5 rounded font-mono">Scratch: Severity High</span>
-                  </div>
-                </div>
+            {/* Image frame */}
+            <div
+              className="relative rounded-xl overflow-hidden border"
+              style={{ borderColor: "rgba(201,162,39,0.25)", boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.1)" }}
+            >
+              <img
+                src={preInspectionImg}
+                alt="AI Pre-Inspection Vehicle Survey"
+                className="w-full h-auto block"
+              />
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-background/50 p-3 rounded-lg border border-border/50">
-                    <div className="text-xs text-muted-foreground mb-1">Document Match</div>
-                    <div className="text-sm font-semibold text-green-500">Verified</div>
-                  </div>
-                  <div className="bg-background/50 p-3 rounded-lg border border-border/50">
-                    <div className="text-xs text-muted-foreground mb-1">Fraud Risk</div>
-                    <div className="text-sm font-semibold text-primary">Low (1.2%)</div>
-                  </div>
-                </div>
-              </div>
+              {/* Animated scan line over image */}
+              <motion.div
+                className="absolute left-0 right-0 h-0.5 pointer-events-none"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(201,162,39,0.9), transparent)" }}
+                animate={{ top: ["0%", "100%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+              />
+
+              {/* Corner accent brackets */}
+              <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-primary rounded-tl-sm" />
+              <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-primary rounded-tr-sm" />
+              <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-primary rounded-bl-sm" />
+              <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-primary rounded-br-sm" />
+
+              {/* Subtle navy overlay to blend image into page bg at edges */}
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ boxShadow: "inset 0 0 60px 20px hsl(220,72%,10%)" }} />
             </div>
-            
-            {/* Glow behind the dashboard */}
-            <div className="absolute -inset-4 bg-primary/20 blur-3xl -z-10 rounded-full opacity-50" />
+
+            {/* Floating live badge */}
+            <motion.div
+              className="absolute -top-4 -right-4 flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-medium"
+              style={{
+                background: "hsl(220,68%,14%)",
+                borderColor: "rgba(201,162,39,0.3)",
+                color: "hsl(43,75%,85%)"
+              }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <motion.span
+                className="w-2 h-2 rounded-full bg-green-400"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+              />
+              AI Scanning Live
+            </motion.div>
+
+            {/* Floating result card */}
+            <motion.div
+              className="absolute -bottom-5 -left-4 px-4 py-3 rounded-lg border text-xs"
+              style={{
+                background: "hsl(220,68%,14%)",
+                borderColor: "rgba(201,162,39,0.3)",
+                color: "hsl(43,75%,85%)",
+                minWidth: 160
+              }}
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <div className="font-semibold mb-1 text-primary">Report Ready</div>
+              <div className="text-muted-foreground">3 issues detected &bull; Fraud Risk: Low</div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
-      
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes scan {
-          0% { background-position: 0 -100px; }
-          100% { background-position: 0 100%; }
-        }
-      `}} />
     </section>
   );
 }
