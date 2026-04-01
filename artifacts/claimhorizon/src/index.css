@@ -69,43 +69,44 @@
 }
 
 :root {
-  --button-outline: rgba(255,255,255, .12);
-  --badge-outline: rgba(255,255,255, .06);
+  --button-outline: rgba(255,255,255,.12);
+  --badge-outline: rgba(255,255,255,.06);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(255,255,255, .05);
-  --elevate-2: rgba(255,255,255, .10);
+  --elevate-1: rgba(255,255,255,.05);
+  --elevate-2: rgba(255,255,255,.10);
 
-  --background: 213 73% 20%;
+  /* Peacock-blue palette */
+  --background: 196 100% 29%;
   --foreground: 0 0% 100%;
-  --border: 213 50% 32%;
-  --card: 213 65% 17%;
+  --border: 196 60% 38%;
+  --card: 196 80% 22%;
   --card-foreground: 0 0% 100%;
-  --card-border: 213 50% 30%;
-  --sidebar: 213 73% 20%;
+  --card-border: 196 60% 35%;
+  --sidebar: 196 100% 25%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 213 50% 32%;
+  --sidebar-border: 196 60% 35%;
   --sidebar-primary: 44 90% 61%;
-  --sidebar-primary-foreground: 213 73% 12%;
+  --sidebar-primary-foreground: 196 100% 12%;
   --sidebar-accent: 44 90% 61%;
-  --sidebar-accent-foreground: 213 73% 12%;
+  --sidebar-accent-foreground: 196 100% 12%;
   --sidebar-ring: 44 90% 61%;
-  --popover: 213 65% 17%;
+  --popover: 196 80% 22%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 213 50% 30%;
+  --popover-border: 196 60% 35%;
   --primary: 44 90% 61%;
-  --primary-foreground: 213 73% 12%;
-  --secondary: 213 60% 26%;
+  --primary-foreground: 196 100% 12%;
+  --secondary: 196 70% 28%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 213 55% 23%;
-  --muted-foreground: 213 20% 70%;
+  --muted: 196 65% 25%;
+  --muted-foreground: 196 20% 72%;
   --accent: 44 90% 61%;
-  --accent-foreground: 213 73% 12%;
+  --accent-foreground: 196 100% 12%;
   --destructive: 0 65% 45%;
   --destructive-foreground: 0 0% 100%;
-  --input: 213 50% 32%;
+  --input: 196 60% 35%;
   --ring: 44 90% 61%;
   --chart-1: 44 90% 61%;
-  --chart-2: 213 60% 50%;
+  --chart-2: 196 70% 50%;
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
@@ -127,40 +128,35 @@
 }
 
 .dark {
-  --background: 213 73% 20%;
+  --background: 196 100% 29%;
   --foreground: 0 0% 100%;
-  --border: 213 50% 32%;
-  --card: 213 65% 17%;
+  --border: 196 60% 38%;
+  --card: 196 80% 22%;
   --card-foreground: 0 0% 100%;
-  --card-border: 213 50% 30%;
-  --sidebar: 213 73% 20%;
+  --card-border: 196 60% 35%;
+  --sidebar: 196 100% 25%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 213 50% 32%;
+  --sidebar-border: 196 60% 35%;
   --sidebar-primary: 44 90% 61%;
-  --sidebar-primary-foreground: 213 73% 12%;
+  --sidebar-primary-foreground: 196 100% 12%;
   --sidebar-accent: 44 90% 61%;
-  --sidebar-accent-foreground: 213 73% 12%;
+  --sidebar-accent-foreground: 196 100% 12%;
   --sidebar-ring: 44 90% 61%;
-  --popover: 213 65% 17%;
+  --popover: 196 80% 22%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 213 50% 30%;
+  --popover-border: 196 60% 35%;
   --primary: 44 90% 61%;
-  --primary-foreground: 213 73% 12%;
-  --secondary: 213 60% 26%;
+  --primary-foreground: 196 100% 12%;
+  --secondary: 196 70% 28%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 213 55% 23%;
-  --muted-foreground: 213 20% 70%;
+  --muted: 196 65% 25%;
+  --muted-foreground: 196 20% 72%;
   --accent: 44 90% 61%;
-  --accent-foreground: 213 73% 12%;
+  --accent-foreground: 196 100% 12%;
   --destructive: 0 65% 45%;
   --destructive-foreground: 0 0% 100%;
-  --input: 213 50% 32%;
+  --input: 196 60% 35%;
   --ring: 44 90% 61%;
-  --chart-1: 44 90% 61%;
-  --chart-2: 213 60% 50%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
 }
 
 html {
@@ -174,12 +170,16 @@ html {
 
   body {
     @apply font-sans antialiased text-foreground;
-    /* Glossy blue: radial highlight at top-left mimics a gloss/shine reflection */
+    /*
+     * Peacock neck glossy blue:
+     * Base hue: #006994 (deep peacock teal-blue)
+     * Radial highlight at top-left mimics iridescent gloss reflection
+     */
     background:
-      radial-gradient(ellipse at 28% 0%, rgba(80, 160, 255, 0.55) 0%, transparent 52%),
-      radial-gradient(ellipse at 72% 100%, rgba(8, 38, 110, 0.65) 0%, transparent 48%),
-      radial-gradient(ellipse at 90% 10%, rgba(40, 120, 230, 0.30) 0%, transparent 40%),
-      linear-gradient(155deg, #1560c8 0%, #0d45a0 28%, #092e8c 55%, #051870 80%, #030e50 100%);
+      radial-gradient(ellipse at 22% 0%, rgba(0, 210, 255, 0.45) 0%, transparent 48%),
+      radial-gradient(ellipse at 88% 8%,  rgba(0, 160, 210, 0.22) 0%, transparent 38%),
+      radial-gradient(ellipse at 60% 98%, rgba(0, 50, 80,  0.65) 0%, transparent 42%),
+      linear-gradient(150deg, #0096C7 0%, #006994 22%, #005073 45%, #003050 68%, #011830 100%);
     background-attachment: fixed;
     min-height: 100vh;
   }
