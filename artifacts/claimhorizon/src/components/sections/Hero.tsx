@@ -1,74 +1,57 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Zap, ScanLine } from "lucide-react";
 import preInspectionImg from "@assets/image_1775041649343.png";
 
-const floatingParticles = Array.from({ length: 22 }, (_, i) => ({
+const floatingParticles = Array.from({ length: 24 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
   size: Math.random() * 3 + 1,
   duration: Math.random() * 8 + 6,
-  delay: Math.random() * 4,
+  delay: Math.random() * 5,
 }));
 
 const hexagons = [
-  { x: 8, y: 15, size: 70, opacity: 0.06, duration: 14 },
-  { x: 85, y: 10, size: 100, opacity: 0.05, duration: 18 },
-  { x: 70, y: 75, size: 60, opacity: 0.07, duration: 12 },
-  { x: 15, y: 70, size: 90, opacity: 0.04, duration: 20 },
-  { x: 50, y: 30, size: 50, opacity: 0.05, duration: 16 },
+  { x: 6,  y: 12, size: 80,  opacity: 0.10, duration: 14 },
+  { x: 88, y: 8,  size: 110, opacity: 0.08, duration: 18 },
+  { x: 72, y: 78, size: 65,  opacity: 0.09, duration: 12 },
+  { x: 12, y: 72, size: 95,  opacity: 0.07, duration: 20 },
+  { x: 48, y: 28, size: 55,  opacity: 0.08, duration: 16 },
+  { x: 35, y: 88, size: 70,  opacity: 0.06, duration: 22 },
 ];
 
+const GOLD = "#F5C542";
+const BLUE_DARK = "#0B2A5B";
+
 export default function Hero() {
-  const scrollToContact = () => {
-    const el = document.querySelector("#contact");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-  const scrollToFeatures = () => {
-    const el = document.querySelector("#features");
+  const scrollTo = (id: string) => {
+    const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="home"
-      className="relative pt-28 pb-16 lg:pt-44 lg:pb-28 overflow-hidden flex items-center min-h-screen"
-      style={{ background: "hsl(220, 72%, 10%)" }}
+      className="relative pt-32 pb-16 lg:pt-48 lg:pb-28 overflow-hidden flex items-center min-h-screen"
     >
-      {/* ── Animated background vectors ── */}
+      {/* ── Animated background layer ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Dot grid */}
+        <div className="absolute inset-0"
+          style={{ backgroundImage: "radial-gradient(rgba(245,197,66,0.12) 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
 
-        {/* Subtle grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
-
-        {/* Floating gold particles */}
+        {/* Gold particles */}
         {floatingParticles.map((p) => (
           <motion.div
             key={p.id}
             className="absolute rounded-full"
-            style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: p.size,
-              height: p.size,
-              background: "hsl(43, 85%, 53%)",
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0.8, 1.2, 0.8],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, background: GOLD }}
+            animate={{ y: [0, -35, 0], opacity: [0, 0.55, 0], scale: [0.8, 1.3, 0.8] }}
+            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
           />
         ))}
 
-        {/* Animated hexagons (SVG vectors) */}
+        {/* Rotating hexagon vectors */}
         {hexagons.map((h, i) => (
           <motion.svg
             key={i}
@@ -78,226 +61,232 @@ export default function Hero() {
             height={h.size}
             viewBox="0 0 100 100"
             fill="none"
-            animate={{ rotate: [0, 360], opacity: [h.opacity, h.opacity * 1.8, h.opacity] }}
+            animate={{ rotate: [0, 360], opacity: [h.opacity, h.opacity * 2, h.opacity] }}
             transition={{ duration: h.duration, repeat: Infinity, ease: "linear" }}
           >
-            <polygon
-              points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
-              stroke="hsl(43, 85%, 53%)"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.8"
-            />
+            <polygon points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+              stroke={GOLD} strokeWidth="1.5" fill="none" />
           </motion.svg>
         ))}
 
-        {/* Sweeping diagonal light beam */}
+        {/* Sweeping light beam */}
         <motion.div
-          className="absolute -top-20 -left-40 w-[500px] h-[900px] rotate-[30deg] origin-top-left"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(201,162,39,0.04), transparent)" }}
-          animate={{ x: ["-100%", "300%"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear", repeatDelay: 3 }}
+          className="absolute -top-20 -left-40 rotate-[30deg] origin-top-left"
+          style={{ width: 500, height: 900, background: "linear-gradient(90deg, transparent, rgba(245,197,66,0.05), transparent)" }}
+          animate={{ x: ["-100%", "350%"] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "linear", repeatDelay: 4 }}
         />
 
-        {/* Gold glow orbs */}
-        <div className="absolute top-[-5%] right-[5%] w-[420px] h-[420px] rounded-full blur-[130px]"
-          style={{ background: "rgba(201,162,39,0.08)" }} />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[160px]"
-          style={{ background: "rgba(10,22,56,0.6)" }} />
+        {/* Glow orbs */}
+        <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full blur-[140px]"
+          style={{ background: "rgba(30,79,163,0.45)" }} />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[140px]"
+          style={{ background: "rgba(11,42,91,0.7)" }} />
 
-        {/* Moving scan ring */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10"
-          style={{ width: 600, height: 600 }}
-          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.1, 0.4] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/8"
-          style={{ width: 800, height: 800 }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.08, 0.3] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        />
+        {/* Pulsing scan rings */}
+        <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+          style={{ width: 650, height: 650, borderColor: `rgba(245,197,66,0.08)` }}
+          animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.15, 0.5] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+          style={{ width: 900, height: 900, borderColor: `rgba(245,197,66,0.05)` }}
+          animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.1, 0.4] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} />
       </div>
 
-      {/* ── Content ── */}
+      {/* ── Main content ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
-          {/* Left: Text */}
+          {/* LEFT: Text */}
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            {/* Share-code style brand slug */}
             <motion.div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium text-primary mb-6"
-              style={{ background: "rgba(201,162,39,0.08)", borderColor: "rgba(201,162,39,0.25)" }}
-              initial={{ opacity: 0, y: -10 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold mb-3 border"
+              style={{ background: "rgba(245,197,66,0.10)", borderColor: "rgba(245,197,66,0.28)", color: GOLD }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
             >
-              <ScanLine size={13} />
-              <span>Enterprise-Grade AI for Insurers</span>
+              <ScanLine size={12} />
+              <span>#ClaimHorizon &bull; Pre-Inspection AI Platform</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6">
-              <motion.span
-                className="block text-foreground"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.15 }}
+            {/* Company brand name in GOLD above headline */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.18, duration: 0.6 }}
+            >
+              <span
+                className="text-2xl font-bold tracking-wide font-serif"
+                style={{ color: GOLD }}
               >
+                ClaimHorizon
+              </span>
+              <span className="text-white/60 text-sm font-sans ml-2 tracking-wider">Pvt Ltd.</span>
+            </motion.div>
+
+            {/* Main headline */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mt-3 mb-6">
+              <motion.span className="block text-white"
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.25 }}>
                 Shaping the
               </motion.span>
-              <motion.span
-                className="block text-foreground"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.25 }}
-              >
+              <motion.span className="block text-white"
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.32 }}>
                 Future of
               </motion.span>
               <motion.span
-                className="block text-primary italic"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.35 }}
-              >
+                className="block italic"
+                style={{ color: GOLD }}
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.4 }}>
                 Insurance Claims
               </motion.span>
             </h1>
 
             <motion.p
-              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.45 }}
+              className="text-lg text-white/75 mb-8 max-w-xl leading-relaxed"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
             >
               Automate pre-inspection vehicle surveys with precision AI.
-              Eliminate fraud, assess risk accurately, and approve policies faster with our intelligent survey platform.
+              Eliminate fraud, assess risk accurately, and approve policies faster
+              with our intelligent survey platform.
             </motion.p>
 
+            {/* Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <Button size="lg" className="h-14 px-8 text-base font-semibold group" onClick={scrollToContact}>
+              <button
+                onClick={() => scrollTo("#contact")}
+                className="inline-flex items-center justify-center gap-2 h-14 px-9 rounded-md text-base font-bold transition-all duration-200 group"
+                style={{ background: GOLD, color: BLUE_DARK }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = BLUE_DARK;
+                  (e.currentTarget as HTMLButtonElement).style.color = GOLD;
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = `0 0 0 2px ${GOLD}`;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = GOLD;
+                  (e.currentTarget as HTMLButtonElement).style.color = BLUE_DARK;
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
+                }}
+              >
                 Request a Demo
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-14 px-8 text-base font-semibold"
-                style={{ borderColor: "rgba(201,162,39,0.3)" }}
-                onClick={scrollToFeatures}
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <button
+                onClick={() => scrollTo("#features")}
+                className="inline-flex items-center justify-center h-14 px-9 rounded-md text-base font-semibold transition-all duration-200 border"
+                style={{ borderColor: "rgba(245,197,66,0.35)", color: "#fff" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = GOLD;
+                  (e.currentTarget as HTMLButtonElement).style.color = GOLD;
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(245,197,66,0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(245,197,66,0.35)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#fff";
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                }}
               >
                 Explore Features
-              </Button>
+              </button>
             </motion.div>
 
+            {/* Stats row */}
             <motion.div
-              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground font-medium"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.7 }}
+              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-white/65 font-medium"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.75 }}
             >
-              <div className="flex items-center gap-2">
-                <Zap size={15} className="text-primary" />
-                <span>98% Detection Accuracy</span>
-              </div>
-              <div className="w-1 h-1 rounded-full bg-border" />
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={15} className="text-primary" />
-                <span>Fraud Prevention AI</span>
-              </div>
-              <div className="w-1 h-1 rounded-full bg-border" />
-              <div className="flex items-center gap-2">
-                <ScanLine size={15} className="text-primary" />
-                <span>Instant Report Generation</span>
-              </div>
+              {[
+                { icon: <Zap size={14} style={{ color: GOLD }} />, label: "98% Detection Accuracy" },
+                { icon: <ShieldCheck size={14} style={{ color: GOLD }} />, label: "AI Fraud Prevention" },
+                { icon: <ScanLine size={14} style={{ color: GOLD }} />, label: "Instant Report Generation" },
+              ].map((item, i) => (
+                <span key={i} className="flex items-center gap-2">
+                  {item.icon}
+                  {item.label}
+                  {i < 2 && <span className="w-1 h-1 rounded-full bg-white/25 ml-4" />}
+                </span>
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right: Real Pre-Inspection Image with effects */}
+          {/* RIGHT: Pre-inspection image */}
           <motion.div
             className="relative"
-            initial={{ opacity: 0, scale: 0.93 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
           >
             {/* Outer glow */}
-            <div
-              className="absolute -inset-6 rounded-2xl blur-2xl -z-10"
-              style={{ background: "radial-gradient(ellipse, rgba(201,162,39,0.18) 0%, transparent 70%)" }}
-            />
+            <div className="absolute -inset-6 rounded-2xl blur-2xl -z-10"
+              style={{ background: `radial-gradient(ellipse, rgba(245,197,66,0.15) 0%, transparent 70%)` }} />
 
             {/* Image frame */}
-            <div
-              className="relative rounded-xl overflow-hidden border"
-              style={{ borderColor: "rgba(201,162,39,0.25)", boxShadow: "0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,162,39,0.1)" }}
-            >
-              <img
-                src={preInspectionImg}
-                alt="AI Pre-Inspection Vehicle Survey"
-                className="w-full h-auto block"
-              />
+            <div className="relative rounded-2xl overflow-hidden"
+              style={{ border: `1.5px solid rgba(245,197,66,0.3)`, boxShadow: "0 30px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(245,197,66,0.08)" }}>
 
-              {/* Animated scan line over image */}
+              <img src={preInspectionImg} alt="AI Pre-Inspection Vehicle Survey" className="w-full h-auto block" />
+
+              {/* Animated gold scan line */}
               <motion.div
-                className="absolute left-0 right-0 h-0.5 pointer-events-none"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(201,162,39,0.9), transparent)" }}
+                className="absolute left-0 right-0 h-[2px] pointer-events-none"
+                style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`, opacity: 0.7 }}
                 animate={{ top: ["0%", "100%"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
               />
 
-              {/* Corner accent brackets */}
-              <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2 border-primary rounded-tl-sm" />
-              <div className="absolute top-3 right-3 w-5 h-5 border-t-2 border-r-2 border-primary rounded-tr-sm" />
-              <div className="absolute bottom-3 left-3 w-5 h-5 border-b-2 border-l-2 border-primary rounded-bl-sm" />
-              <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2 border-primary rounded-br-sm" />
+              {/* Corner bracket accents */}
+              {[
+                "top-3 left-3 border-t-2 border-l-2 rounded-tl",
+                "top-3 right-3 border-t-2 border-r-2 rounded-tr",
+                "bottom-3 left-3 border-b-2 border-l-2 rounded-bl",
+                "bottom-3 right-3 border-b-2 border-r-2 rounded-br",
+              ].map((cls, i) => (
+                <div key={i} className={`absolute w-5 h-5 ${cls}`} style={{ borderColor: GOLD }} />
+              ))}
 
-              {/* Subtle navy overlay to blend image into page bg at edges */}
+              {/* Vignette to blend image edges into page gradient */}
               <div className="absolute inset-0 pointer-events-none"
-                style={{ boxShadow: "inset 0 0 60px 20px hsl(220,72%,10%)" }} />
+                style={{ boxShadow: "inset 0 0 80px 30px rgba(11,42,91,0.6)" }} />
             </div>
 
-            {/* Floating live badge */}
+            {/* Floating "AI Scanning Live" badge */}
             <motion.div
-              className="absolute -top-4 -right-4 flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-medium"
-              style={{
-                background: "hsl(220,68%,14%)",
-                borderColor: "rgba(201,162,39,0.3)",
-                color: "hsl(43,75%,85%)"
-              }}
-              animate={{ y: [0, -5, 0] }}
+              className="absolute -top-4 -right-4 flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-white"
+              style={{ background: "rgba(11,42,91,0.9)", border: `1px solid rgba(245,197,66,0.35)`, backdropFilter: "blur(8px)" }}
+              animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <motion.span
-                className="w-2 h-2 rounded-full bg-green-400"
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              />
+              <motion.span className="w-2 h-2 rounded-full bg-green-400"
+                animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.2, repeat: Infinity }} />
               AI Scanning Live
             </motion.div>
 
             {/* Floating result card */}
             <motion.div
-              className="absolute -bottom-5 -left-4 px-4 py-3 rounded-lg border text-xs"
-              style={{
-                background: "hsl(220,68%,14%)",
-                borderColor: "rgba(201,162,39,0.3)",
-                color: "hsl(43,75%,85%)",
-                minWidth: 160
-              }}
-              animate={{ y: [0, 5, 0] }}
+              className="absolute -bottom-5 -left-4 px-4 py-3 rounded-lg text-xs text-white"
+              style={{ background: "rgba(11,42,91,0.9)", border: `1px solid rgba(245,197,66,0.3)`, backdropFilter: "blur(8px)", minWidth: 170 }}
+              animate={{ y: [0, 6, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             >
-              <div className="font-semibold mb-1 text-primary">Report Ready</div>
-              <div className="text-muted-foreground">3 issues detected &bull; Fraud Risk: Low</div>
+              <div className="font-semibold mb-1" style={{ color: GOLD }}>Report Ready</div>
+              <div className="text-white/65">3 issues detected &bull; Fraud Risk: Low</div>
             </motion.div>
           </motion.div>
         </div>
