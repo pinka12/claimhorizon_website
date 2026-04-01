@@ -16,6 +16,20 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### `artifacts/claimhorizon` (`@workspace/claimhorizon`)
+
+ClaimHorizon Pvt Ltd company website — AI-powered pre-inspection survey service for insurance companies.
+
+- Single-page React + Vite website (presentation-first, no backend)
+- Sections: Navbar, Hero, Why Pre-Inspection, How It Works, Features, Impact Stats, Contact Form, Footer
+- Contact form uses Web3Forms (https://web3forms.com/) — replace the access key in `src/components/sections/Contact.tsx`
+- Brand colors: deep navy (#0a1628) + gold (#c9a227) — matching logo
+- Logo imported from `attached_assets/claimhorizon_1775038224104.jpeg`
+- Google Fonts: Playfair Display (headings) + Inter (body)
+- Animations via framer-motion
+
 ## Structure
 
 ```text
