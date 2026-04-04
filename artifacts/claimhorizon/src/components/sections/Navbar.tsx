@@ -39,7 +39,7 @@ export default function Navbar() {
       }`}
       style={isScrolled ? { background: "rgba(13,50,140,0.88)", backdropFilter: "blur(16px)" } : { background: "transparent" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6 sm:px-10 lg:px-16">
         <div className="flex items-center justify-between h-24">
 
           {/* Logo only — name is already embedded in the logo image */}
@@ -50,18 +50,18 @@ export default function Navbar() {
             <img
               src={logoPath}
               alt="ClaimHorizon Pvt Ltd."
-              className="h-20 w-auto"
-              style={{ filter: "drop-shadow(0 2px 12px rgba(245,197,66,0.25))" }}
+              className="h-20 w-auto sm:h-24 lg:h-28"
+              style={{ filter: "drop-shadow(0 4px 18px rgba(245,197,66,0.35))" }}
             />
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav className="hidden md:flex items-center gap-10 text-lg font-semibold">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollTo(link.href)}
-                className="text-sm font-medium text-white/80 hover:text-white transition-colors"
+                className="text-lg font-semibold text-white/80 hover:text-white transition-colors"
               >
                 {link.name}
               </button>
@@ -108,7 +108,7 @@ export default function Navbar() {
                 <button
                   key={link.name}
                   onClick={() => scrollTo(link.href)}
-                  className="text-left text-base font-medium text-white/90 hover:text-white py-2 border-b border-white/10"
+                  className="text-left text-lg font-semibold text-white/90 hover:text-white py-2 border-b border-white/10"
                 >
                   {link.name}
                 </button>

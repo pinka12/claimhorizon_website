@@ -36,17 +36,17 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-20">
+    <section id="how-it-works" className="py-24">
+      <div className="w-full px-6 sm:px-10 lg:px-16">
+        <div className="text-center max-w-4xl mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">The Inspection Process</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-5xl md:text-6xl font-bold mb-8">The Inspection Process</h2>
+            <p className="text-2xl text-muted-foreground">
               A frictionless journey from upload to underwriter. We've digitized the entire physical survey process without compromising on detail.
             </p>
           </motion.div>
@@ -56,7 +56,7 @@ export default function HowItWorks() {
           {/* Connecting line for desktop */}
           <div className="hidden md:block absolute top-[45px] left-[10%] right-[10%] h-0.5 bg-border/50 z-0" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-16 gap-x-10 text-lg">
             {steps.map((step, index) => (
               <motion.div
                 key={index}
@@ -76,8 +76,8 @@ export default function HowItWorks() {
                     0{index + 1}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 font-serif">{step.title}</h3>
-                <p className="text-muted-foreground text-sm max-w-[280px]">
+                <h3 className="text-2xl font-bold mb-3 font-serif">{step.title}</h3>
+                <p className="text-muted-foreground text-base max-w-[320px]">
                   {step.description}
                 </p>
               </motion.div>

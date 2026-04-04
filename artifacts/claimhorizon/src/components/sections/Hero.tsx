@@ -4,6 +4,7 @@ import preInspectionImg from "@assets/image_1775041649343.png";
 
 const GOLD = "#F5C542";
 const BLUE_DARK = "#011830";
+const VECTOR_COLOR = "#4fb4ff";
 
 /* Motor-insurance themed SVG icons — drawn as path/shape definitions */
 const motorIcons = [
@@ -118,10 +119,68 @@ const motorIcons = [
       </svg>
     ),
   },
+  {
+    id: "car-mini",
+    x: 52, y: 6, size: 80, opacity: 0.18, duration: 20, rotate: false,
+    svg: (
+      <svg viewBox="0 0 130 70" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 46 L12 34 L30 20 L88 20 L106 34 L116 34 L116 48 L12 48 Z" />
+        <path d="M32 34 L42 22 L85 22 L96 34 Z" />
+        <circle cx="33" cy="51" r="10" />
+        <circle cx="95" cy="51" r="10" />
+        <line x1="12" y1="34" x2="116" y2="34" />
+      </svg>
+    ),
+  },
+  {
+    id: "shield-mini",
+    x: 12, y: 30, size: 75, opacity: 0.2, duration: 17, rotate: false,
+    svg: (
+      <svg viewBox="0 0 80 90" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M40 6 L70 18 L70 46 C70 66 40 82 40 82 C40 82 10 66 10 46 L10 18 Z" />
+        <polyline points="24,46 35,57 58,32" />
+      </svg>
+    ),
+  },
+  {
+    id: "phone-mini",
+    x: 62, y: 60, size: 70, opacity: 0.2, duration: 18, rotate: false,
+    svg: (
+      <svg viewBox="0 0 75 115" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="12" y="5" width="51" height="88" rx="7" />
+        <line x1="30" y1="10" x2="45" y2="10" />
+        <path d="M20 53 L20 47 L27 40 L48 40 L55 47 L55 53 Z" />
+        <path d="M27 47 L30 41 L45 41 L49 47 Z" />
+        <circle cx="27" cy="55" r="4" />
+        <circle cx="48" cy="55" r="4" />
+        <path d="M16 18 L16 13 L21 13" />
+        <path d="M59 18 L59 13 L54 13" />
+        <path d="M16 70 L16 75 L21 75" />
+        <path d="M59 70 L59 75 L54 75" />
+      </svg>
+    ),
+  },
+  {
+    id: "policy-mini",
+    x: 85, y: 48, size: 70, opacity: 0.19, duration: 16, rotate: false,
+    svg: (
+      <svg viewBox="0 0 80 100" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="10" y="8" width="60" height="80" rx="4" />
+        <line x1="20" y1="25" x2="60" y2="25" />
+        <line x1="20" y1="35" x2="60" y2="35" />
+        <line x1="20" y1="45" x2="45" y2="45" />
+        <line x1="20" y1="55" x2="55" y2="55" />
+        <line x1="20" y1="65" x2="50" y2="65" />
+        <rect x="28" y="16" width="24" height="12" rx="2" />
+        <line x1="30" y1="19" x2="50" y2="19" />
+        <line x1="30" y1="23" x2="47" y2="23" />
+      </svg>
+    ),
+  },
 ];
 
 /* Floating gold particles */
-const particles = Array.from({ length: 18 }, (_, i) => ({
+const particles = Array.from({ length: 30 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
@@ -158,7 +217,7 @@ export default function Hero() {
               top: `${icon.y}%`,
               width: icon.size,
               height: icon.size,
-              color: GOLD,
+              color: VECTOR_COLOR,
               opacity: icon.opacity,
             }}
             animate={{
@@ -176,7 +235,7 @@ export default function Hero() {
             <svg
               viewBox={(icon.svg as React.ReactElement).props.viewBox}
               fill="none"
-              stroke={GOLD}
+              stroke={VECTOR_COLOR}
               strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -193,7 +252,7 @@ export default function Hero() {
           <motion.div
             key={p.id}
             className="absolute rounded-full"
-            style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, background: GOLD }}
+            style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, background: VECTOR_COLOR }}
             animate={{ y: [0, -32, 0], opacity: [0, 0.55, 0] }}
             transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -215,17 +274,18 @@ export default function Hero() {
       </div>
 
       {/* ── Content ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div className="w-full px-6 sm:px-10 lg:px-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] xl:grid-cols-[1.25fr_1fr] gap-16 lg:gap-24 items-center">
 
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-2xl"
           >
             {/* Main headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-white mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[4.75rem] font-bold tracking-tight leading-[1.08] text-white mb-6">
               <motion.span className="block"
                 initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.15 }}>
@@ -244,7 +304,7 @@ export default function Hero() {
             </h1>
 
             <motion.p
-              className="text-lg text-white/70 mb-8 max-w-xl leading-relaxed"
+              className="text-xl text-white/75 mb-10 max-w-2xl leading-relaxed"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.45 }}
             >
@@ -255,13 +315,13 @@ export default function Hero() {
 
             {/* Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 text-base"
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.55 }}
             >
               <button
                 onClick={() => scrollTo("#contact")}
-                className="inline-flex items-center justify-center gap-2 h-14 px-9 rounded-md text-base font-bold transition-all duration-200 group"
+                className="inline-flex items-center justify-center gap-2 h-16 px-10 rounded-md text-base font-bold transition-all duration-200 group"
                 style={{ background: GOLD, color: BLUE_DARK }}
                 onMouseEnter={(e) => {
                   const b = e.currentTarget as HTMLButtonElement;
@@ -282,7 +342,7 @@ export default function Hero() {
 
               <button
                 onClick={() => scrollTo("#features")}
-                className="inline-flex items-center justify-center h-14 px-9 rounded-md text-base font-semibold transition-all duration-200 border"
+                className="inline-flex items-center justify-center h-16 px-10 rounded-md text-base font-semibold transition-all duration-200 border"
                 style={{ borderColor: "rgba(245,197,66,0.4)", color: "#fff" }}
                 onMouseEnter={(e) => {
                   const b = e.currentTarget as HTMLButtonElement;
@@ -304,7 +364,7 @@ export default function Hero() {
 
           {/* RIGHT — image with overlaid badges */}
           <motion.div
-            className="relative mt-8 lg:mt-0"
+            className="relative mt-8 lg:mt-0 w-full lg:max-w-[1100px] xl:max-w-[1300px]"
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
@@ -332,7 +392,7 @@ export default function Hero() {
               <img
                 src={preInspectionImg}
                 alt="AI Pre-Inspection Vehicle Survey"
-                className="w-full h-auto block"
+                className="w-full h-auto block lg:min-h-[580px]"
                 style={{ filter: "brightness(1.18) contrast(1.04)" }}
               />
 

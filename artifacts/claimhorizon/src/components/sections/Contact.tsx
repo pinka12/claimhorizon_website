@@ -19,7 +19,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    formData.append("access_key", "YOUR_WEB3FORMS_KEY");
+    formData.append("access_key", "f6a3e5de-6607-4174-84dd-11a2df9a4b54");
     formData.append("subject", "New ClaimHorizon Inquiry");
     formData.append("from_name", "ClaimHorizon Website");
 
@@ -51,8 +51,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="w-full px-6 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 text-lg">
 
           {/* Left info */}
           <motion.div
@@ -61,16 +61,16 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 font-serif text-white">
               Partner with Intelligence
             </h2>
-            <p className="text-lg text-white/65 mb-10">
+            <p className="text-2xl text-white/70 mb-10 leading-relaxed">
               Discover how ClaimHorizon can transform your underwriting process,
               reduce operational costs, and fortify your portfolio against fraud.
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 text-xl">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: "rgba(245,197,66,0.12)", border: "1px solid rgba(245,197,66,0.25)" }}>
                   <Mail size={18} style={{ color: GOLD }} />
