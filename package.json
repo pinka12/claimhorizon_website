@@ -1,7 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "workspace",
   "version": "0.0.0",
   "license": "MIT",
+  "packageManager": "pnpm@9",
   "scripts": {
     "preinstall": "node ./tools/preinstall-check.mjs",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
@@ -13,4 +15,5 @@
     "typescript": "~5.9.2",
     "prettier": "^3.8.1"
   }
+ 
 }
