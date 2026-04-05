@@ -2,5 +2,5 @@ services:
   - type: web
     name: claimhorizon-frontend
     env: static
-    buildCommand: corepack enable && corepack prepare pnpm@9 --activate && pnpm install && pnpm build
+    buildCommand: cd artifacts/claimhorizon && corepack enable && corepack prepare pnpm@9 --activate && pnpm install --no-frozen-lockfile && pnpm build
     staticPublishPath: artifacts/claimhorizon/dist
