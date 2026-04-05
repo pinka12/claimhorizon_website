@@ -4,3 +4,6 @@ services:
     env: static
     buildCommand: cd artifacts/claimhorizon && corepack enable && corepack prepare pnpm@9 --activate && pnpm install --no-frozen-lockfile && pnpm build
     staticPublishPath: artifacts/claimhorizon/dist
+    envVars:
+      - key: BASE_PATH
+        value: /
